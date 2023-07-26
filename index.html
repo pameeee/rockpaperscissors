@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My JavaScript App</title>
+</head>
+
+<body>
+    <h1>Hello, World!</h1>
+
+    <script>
+        console.log("Hello world!");
+
+        // PRIORITY: Try prompt
+
+        // Create function getComputerChoice
+            // randomly returns either rock, paper, or scissors
+
+        // Create function playRound function - takes 2 parameters: playerSelection, computerSelection
+            // return string declaring winner e.g. "You lose! Paper beats Rock"
+
+        // Create function game()
+            // use playRound inside this
+            // Keeps track for 5-round game
+
+
+
+
+
+        // Final:
+
+        // Generate computer selection
+        function getComputerChoice() {
+                const options = ['rock', 'paper', 'scissors'];
+                let randomIndex = Math.floor(Math.random() * options.length);
+                return options[randomIndex];
+        }
+        let computerSelection = getComputerChoice();
+
+        // Ask for user's selection
+        let userSelection = prompt('Choose one: rock, paper, scissors').toLowerCase();
+
+        // Compare computer vs. user
+            //function playRound, take two parameters
+                // SAME user -> computer : NO POINT
+                // WINS: user -> computer
+                    // rock -> scissors
+                    // paper -> rock
+                    // scissors -> paper
+                // ELSE : lose
+            // declare winner
+        function playRound(computerSelection, userSelection) {
+            console.log(`The computer choice is ${computerSelection}`);
+            console.log(`The user choice is ${userSelection}`);
+
+            if (computerSelection === userSelection) {
+                console.log("It's a tie");
+            } else {
+                console.log("It's not a tie");
+            }
+        }
+
+
+        // Create function game() User must do it 5 times
+
+        // Test
+        // console.log(`The computer choice is ${computerSelection}`);
+        // console.log(`The user choice is ${userSelection}`);
+        playRound(computerSelection, userSelection);
+
+    </script>
+</body>
+
+</html>
