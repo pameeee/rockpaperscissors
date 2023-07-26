@@ -22,8 +22,6 @@
 
         // Compare computer vs. user
         function playRound(computerSelection, userSelection) {
-            console.log(`The computer choice is ${computerSelection}`);
-            console.log(`The user choice is ${userSelection}`);
 
             if (computerSelection === userSelection) {
                 console.log("It's a tie");
@@ -35,11 +33,10 @@
                 console.log(`You win. ${userSelection.slice(0, 1).toUpperCase() + userSelection.slice(1)} beats ${computerSelection}.`);
                 userPoints++;
             } else {
-                console.log(`You lose. ${computerSelection.slice(0, 1).toUpperCase() + computerSelection.slice(1)} beats ${computerSelection}.`);
+                console.log(`You lose. ${computerSelection.slice(0, 1).toUpperCase() + computerSelection.slice(1)} beats ${userSelection}.`);
                 computerPoints++;
             }
-            console.log("User points:", userPoints);
-            console.log("Computer points:", computerPoints);
+            console.log(`User: ${userPoints} vs. computer: ${computerPoints}`);
         }
 
         function game() {
@@ -52,13 +49,16 @@
         game();
         game();
         game();
+        game();
+        game();
 
-
-        // If win, add 1 point to points
-        // If lose, add 1 point to computer
-        // After 5 rounds, check who is winner
-            // If user points >= computer, YOU WIN
-            // Else, you lose
+        if (userPoints > computerPoints) {
+            console.log(`CONGRATULATIONS! YOU WIN!`);
+        } else if (userPoints === computerPoints) {
+            console.log("Game over! It's a tie");
+        } else {
+            console.log("Game over! The computer won.");
+        }
 
     </script>
 </body>
