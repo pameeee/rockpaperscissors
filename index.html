@@ -11,64 +11,54 @@
     <h1>Hello, World!</h1>
 
     <script>
-        console.log("Hello world!");
+        let userPoints = 0;
+        let computerPoints = 0;
 
-        // PRIORITY: Try prompt
-
-        // Create function getComputerChoice
-            // randomly returns either rock, paper, or scissors
-
-        // Create function playRound function - takes 2 parameters: playerSelection, computerSelection
-            // return string declaring winner e.g. "You lose! Paper beats Rock"
-
-        // Create function game()
-            // use playRound inside this
-            // Keeps track for 5-round game
-
-
-
-
-
-        // Final:
-
-        // Generate computer selection
         function getComputerChoice() {
                 const options = ['rock', 'paper', 'scissors'];
                 let randomIndex = Math.floor(Math.random() * options.length);
                 return options[randomIndex];
         }
-        let computerSelection = getComputerChoice();
-
-        // Ask for user's selection
-        let userSelection = prompt('Choose one: rock, paper, scissors').toLowerCase();
 
         // Compare computer vs. user
-            //function playRound, take two parameters
-                // SAME user -> computer : NO POINT
-                // WINS: user -> computer
-                    // rock -> scissors
-                    // paper -> rock
-                    // scissors -> paper
-                // ELSE : lose
-            // declare winner
         function playRound(computerSelection, userSelection) {
             console.log(`The computer choice is ${computerSelection}`);
             console.log(`The user choice is ${userSelection}`);
 
             if (computerSelection === userSelection) {
                 console.log("It's a tie");
+            } else if (
+                (userSelection === "rock" && computerSelection === "scissors") ||
+                (userSelection === "paper" && computerSelection === "rock") ||
+                (userSelection === "scissors" && computerSelection === "paper")
+            ) {
+                console.log(`You win. ${userSelection.slice(0, 1).toUpperCase() + userSelection.slice(1)} beats ${computerSelection}.`);
+                userPoints++;
             } else {
-                console.log("It's not a tie");
+                console.log(`You lose. ${computerSelection.slice(0, 1).toUpperCase() + computerSelection.slice(1)} beats ${computerSelection}.`);
+                computerPoints++;
             }
+            console.log("User points:", userPoints);
+            console.log("Computer points:", computerPoints);
         }
 
+        function game() {
+            // Ask for user's selection
+            let computerSelection = getComputerChoice();
+            let userSelection = prompt('Choose one: rock, paper, scissors').toLowerCase();
+            playRound(computerSelection, userSelection);
+        }
 
-        // Create function game() User must do it 5 times
+        game();
+        game();
+        game();
 
-        // Test
-        // console.log(`The computer choice is ${computerSelection}`);
-        // console.log(`The user choice is ${userSelection}`);
-        playRound(computerSelection, userSelection);
+
+        // If win, add 1 point to points
+        // If lose, add 1 point to computer
+        // After 5 rounds, check who is winner
+            // If user points >= computer, YOU WIN
+            // Else, you lose
 
     </script>
 </body>
