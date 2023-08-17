@@ -1,0 +1,8 @@
+button {
+    width: 150px;
+    height: 150px;
+}
+
+#output, #outputScores {
+    font-size: 1.5rem;
+}

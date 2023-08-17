@@ -1,66 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="style.css" />
+        <title>My JavaScript App</title>
+    </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My JavaScript App</title>
-</head>
-
-<body>
-    <h1>Hello, World!</h1>
-
+    <body>
+        <div id="output">Output here</div>
+        <div id="outputScores">Scores here</div>
+        <div class="buttons">
+            <button class="button" id="rock">Rock</button>
+            <button class="button" id="paper">Paper</button>
+            <button class="button" id="scissors">Scissors</button>
+        </div>
+    </body>
     <script>
         let userPoints = 0;
         let computerPoints = 0;
+        let game = true;
 
         function getComputerChoice() {
-                const options = ['rock', 'paper', 'scissors'];
-                let randomIndex = Math.floor(Math.random() * options.length);
-                return options[randomIndex];
+            const options = ["rock", "paper", "scissors"];
+            let randomIndex = Math.floor(Math.random() * options.length);
+            return options[randomIndex];
         }
 
-        // Compare computer vs. user
-        function playRound(computerSelection, userSelection) {
+        function checkGame() {
+            
+            if (userPoints == 5 || computerPoints == 5) {
+                outputScores.textContent =
+                    userPoints == 5
+                        ? "YOU WON!!!!!"
+                        : "GAME OVER! THE COMPUTER WON!!!!!";
+                game = false;
+            } else {
+                outputScores.textContent = `Your score: ${userPoints}     |     Computer score: ${computerPoints}`;
+            }
+        }
 
+        function playRound(userSelection, computerSelection) {
             if (computerSelection === userSelection) {
-                console.log("It's a tie");
+                console.log("User selection: ", userSelection);
+                console.log("Computer selection: ", computerSelection);
+                output.textContent = "It's a tie!";
             } else if (
-                (userSelection === "rock" && computerSelection === "scissors") ||
+                (userSelection === "rock" &&
+                    computerSelection === "scissors") ||
                 (userSelection === "paper" && computerSelection === "rock") ||
                 (userSelection === "scissors" && computerSelection === "paper")
             ) {
-                console.log(`You win. ${userSelection.slice(0, 1).toUpperCase() + userSelection.slice(1)} beats ${computerSelection}.`);
+                output.textContent = `YOU WIN! ${
+                    userSelection.slice(0, 1).toUpperCase() +
+                    userSelection.slice(1)
+                } beats ${computerSelection}`;
                 userPoints++;
             } else {
-                console.log(`You lose. ${computerSelection.slice(0, 1).toUpperCase() + computerSelection.slice(1)} beats ${userSelection}.`);
+                output.textContent = `YOU LOSE! ${
+                    computerSelection.slice(0, 1).toUpperCase() +
+                    computerSelection.slice(1)
+                } beats ${userSelection}`;
                 computerPoints++;
             }
-            console.log(`User: ${userPoints} vs. computer: ${computerPoints}`);
+
+            checkGame();
         }
 
-        function game() {
-            // Ask for user's selection
-            let computerSelection = getComputerChoice();
-            let userSelection = prompt('Choose one: rock, paper, scissors').toLowerCase();
-            playRound(computerSelection, userSelection);
-        }
+        const buttons = document.querySelectorAll(".button");
+        const output = document.getElementById("output");
 
-        game();
-        game();
-        game();
-        game();
-        game();
+        buttons.forEach((button) =>
+            button.addEventListener("click", () => {
+                if (game) {
+                    const userSelection = button.id;
+                    const computerSelection = getComputerChoice();
+                    playRound(userSelection, computerSelection);
 
-        if (userPoints > computerPoints) {
-            console.log(`CONGRATULATIONS! YOU WIN!`);
-        } else if (userPoints === computerPoints) {
-            console.log("Game over! It's a tie");
-        } else {
-            console.log("Game over! The computer won.");
-        }
-
+                    if (!game) {
+                        buttons.forEach((btn) => (btn.disabled = true));
+                    }
+                }
+            })
+        );
     </script>
-</body>
-
 </html>
