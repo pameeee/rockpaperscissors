@@ -6,3 +6,13 @@ button {
 #output, #outputScores {
     font-size: 1.5rem;
 }
+
+/* if (game) {
+    const userSelection = button.id;
+    const computerSelection = getComputerChoice();
+    playRound(userSelection, computerSelection);
+
+    if (!game) {
+        buttons.forEach((btn) => (btn.disabled = true));
+    }
+} */

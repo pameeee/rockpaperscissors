@@ -28,22 +28,25 @@
         }
 
         function checkGame() {
-            
+            let message =
+                userPoints == 5
+                    ? "YOU WON!!!!!"
+                    : "Game over. The computer won.";
+
             if (userPoints == 5 || computerPoints == 5) {
-                outputScores.textContent =
-                    userPoints == 5
-                        ? "YOU WON!!!!!"
-                        : "GAME OVER! THE COMPUTER WON!!!!!";
+                setTimeout(function () {
+                    alert(message);
+                }, 0);
                 game = false;
-            } else {
-                outputScores.textContent = `Your score: ${userPoints}     |     Computer score: ${computerPoints}`;
+                userPoints = computerPoints = 0;
+                setTimeout(function () {
+                    outputScores.textContent = `Your score: ${userPoints} | Computer score: ${computerPoints}`;
+                }, 0);
             }
         }
 
         function playRound(userSelection, computerSelection) {
             if (computerSelection === userSelection) {
-                console.log("User selection: ", userSelection);
-                console.log("Computer selection: ", computerSelection);
                 output.textContent = "It's a tie!";
             } else if (
                 (userSelection === "rock" &&
@@ -63,7 +66,7 @@
                 } beats ${userSelection}`;
                 computerPoints++;
             }
-
+            outputScores.textContent = `Your score: ${userPoints}     |     Computer score: ${computerPoints}`;
             checkGame();
         }
 
@@ -72,15 +75,9 @@
 
         buttons.forEach((button) =>
             button.addEventListener("click", () => {
-                if (game) {
-                    const userSelection = button.id;
-                    const computerSelection = getComputerChoice();
-                    playRound(userSelection, computerSelection);
-
-                    if (!game) {
-                        buttons.forEach((btn) => (btn.disabled = true));
-                    }
-                }
+                const userSelection = button.id;
+                const computerSelection = getComputerChoice();
+                playRound(userSelection, computerSelection);
             })
         );
     </script>
